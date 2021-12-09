@@ -12,25 +12,25 @@ import java.util.Scanner;
 public class Main {
     public static void main(String args[]) throws ParseException {
 
-        System.out.println("Enter your Date Of Birth in YYYY-MM-DD");
-        Scanner s = new Scanner(System.in);
-        String dob = s.nextLine();
+        System.out.println("Enter your Date Of Birth in YYYY-MM-DD\n");
+        Scanner scanner = new Scanner(System.in);
+        String dob = scanner.nextLine();
 
         try {
             Date dateOfBirth = new SimpleDateFormat("yyyy-MM-dd").parse(dob);
             LocalDate today = LocalDate.now();
             LocalDate date = dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            Period p = Period.between(date, today);
-            System.out.println("You are eligible for driving license");
+            Period pd = Period.between(date, today);
 
-            if(p.getYears()<18){
-                String age = String.valueOf(p.getYears());
+            if(pd.getYears() < 16){
+                String age = String.valueOf(pd.getYears());
                 throw new Exception(age);
+            } else {
+                System.out.println("You can apply for a driving license.");
             }
-        }catch(Exception e){
-            System.out.println("The age of the applicant is "+e.getMessage() +" which is too early to apply for a driving license");
+        } catch(Exception e){
+            System.out.println("The age of the applicant is "+e.getMessage() +" which is too early to apply for a driving license.");
         }
-
-
     }
 }
+
